@@ -2,7 +2,7 @@
 name = "pyxpp"
 version = "0.1.0"
 description = "Translator from a variety of Python language to a variety of C++ language"
-authors = ["Oidaho <76991612+Oidaho@users.noreply.github.com>"]
+authors = ["Oidaho <oidaho.main@yandex.ru>"]
 license = "GPL-3.0 license"
 readme = "README.md"
 
