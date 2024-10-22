@@ -5,6 +5,10 @@ description = "Translator from a variety of Python language to a variety of C++ 
 authors = ["Oidaho <oidaho.main@yandex.ru>"]
 license = "GPL-3.0 license"
 readme = "README.md"
+packages = [{include = "pyxpp"}]
+
+[tool.poetry.scripts]
+pyxpp = "pyxpp.execute:main"
 
 [tool.poetry.dependencies]
 python = "^3.12"
