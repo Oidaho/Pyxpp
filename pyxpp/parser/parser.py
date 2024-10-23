@@ -1,4 +1,4 @@
-# pyxpp/cli/validate.py
+# pyxpp/parser/parser.py
 """_summary_"""
 
 
