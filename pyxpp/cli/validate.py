@@ -3,7 +3,11 @@
 
 from pathlib import Path
 
-from .exceptions import WrongExtensionError, NonExistentPathError
+from .exceptions import (
+    WrongExtensionError,
+    NonExistentDirectoryError,
+    NonExistentFileError,
+)
 
 
 def FilePath(input_path: str) -> Path:
@@ -22,7 +26,7 @@ def FilePath(input_path: str) -> Path:
     """
     path_obj = Path(input_path)
     if not path_obj.is_file():
-        raise NonExistentPathError(
+        raise NonExistentFileError(
             f"'{path_obj}' is not a file or does not exist.",
         )
 
@@ -40,7 +44,7 @@ def DirectoryPath(output_path: str) -> Path:
         output_path (str): _description_
 
     Raises:
-        ...
+        NonExistentDirectoryError: _description_
 
     Returns:
         Path: Pathlib Path Object.
