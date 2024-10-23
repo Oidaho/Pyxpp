@@ -12,9 +12,17 @@ class WrongExtensionError(ArgumentTypeError):
     pass
 
 
-class NonExistentPathError(ArgumentTypeError):
+class NonExistentFileError(ArgumentTypeError):
     """A child class that flexibly implements an error in which
-    the specified directory or file does not exist.
+    the target file does not exist or its directory.
+    """
+
+    pass
+
+
+class NonExistentDirectoryError(ArgumentTypeError):
+    """A child class that flexibly implements an error in which
+    the target directory does not exist or its file.
     """
 
     pass
