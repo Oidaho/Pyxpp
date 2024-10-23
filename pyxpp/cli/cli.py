@@ -6,7 +6,7 @@ import argparse
 from .validate import FilePath, DirectoryPath
 
 
-cli_parser = argparse.ArgumentParser(
+cli = argparse.ArgumentParser(
     prog="pyxpp",
     description="Translator from a variety of Python language to a variety of C++ language.",
     usage="%(prog)s ./code.py [options]",
@@ -18,7 +18,7 @@ cli_parser = argparse.ArgumentParser(
 )
 
 
-cli_parser.add_argument(
+cli.add_argument(
     "input",
     help="*.py input file",
     metavar="./code.py",
@@ -26,7 +26,7 @@ cli_parser.add_argument(
 )
 
 
-cli_parser.add_argument(
+cli.add_argument(
     "-o",
     help="output file path",
     metavar="./cpp_files/",
