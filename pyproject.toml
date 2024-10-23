@@ -19,3 +19,8 @@ pytest = "^8.3.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = "tests/"
+python_files = "test_*.py"
+addopts = "-vv -p no:cacheprovider --disable-warnings"
