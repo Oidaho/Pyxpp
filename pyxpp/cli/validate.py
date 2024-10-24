@@ -1,56 +1,16 @@
 # pyxpp/cli/validate.py
 """_summary_"""
+import os
+from typing import Union
 
-from pathlib import Path
-
-from .exceptions import (
-    WrongExtensionError,
-    NonExistentDirectoryError,
-    NonExistentFileError,
-)
-
-
-def FilePath(input_path: str) -> Path:
-    """Checks the existence of the file at the specified path
-    and ensures it has the .py extension.
+def DirectoryPath(path: Union[str, bytes]) -> bool:
+    """
+    Validate if the specified path is a directory.
 
     Args:
-        input_path (str): Input path to the file.
-
-    Raises:
-        WrongExtensionError: _description_
-        NonExistentPathError: _description_
+        path (Union[str, bytes]): The path to validate.
 
     Returns:
-        Path: Pathlib Path Object.
+        bool: True if the path is a directory, False otherwise.
     """
-    path_obj = Path(input_path)
-    if not path_obj.is_file():
-        raise NonExistentFileError(
-            f"'{path_obj}' is not a file or does not exist.",
-        )
-
-    if path_obj.suffix != ".py":
-        raise WrongExtensionError(
-            f"'{path_obj}' must have the .py extension.",
-        )
-
-    return path_obj
-
-
-def DirectoryPath(output_path: str) -> Path:
-    """Checks the existence of the specified directory.
-    Args:
-        output_path (str): _description_
-
-    Raises:
-        NonExistentDirectoryError: _description_
-
-    Returns:
-        Path: Pathlib Path Object.
-    """
-    path_obj = Path(output_path)
-
-    # TODO: Write me
-
-    return path_obj
+    return os.path.isdir(path)
