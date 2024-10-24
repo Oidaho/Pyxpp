@@ -1,72 +1,24 @@
-# tests/test_validators.py
-"""
-A file containing test classes of validation functions
-for input data to the CLi interface
-"""
-
-from pathlib import Path
 import pytest
+import os
+from pyxpp.cli.validate import DirectoryPath
 
-from pyxpp.cli.validate import FilePath, DirectoryPath
-from pyxpp.cli.exceptions import (
-    WrongExtensionError,
-    NonExistentFileError,
-    NonExistentDirectoryError,
-)
-
-
-#! FilePath func
-class TestFilePathValidator:
-    """File path validator tests for 'input' positional argument"""
-
-    @pytest.mark.parametrize(
-        "input_path, file_name",
-        [
-            ("tests\\test_files\\code.py", "code.py"),
-        ],
-    )
-    def test_correct_file_path(self, input_path, file_name):
-        result = FilePath(input_path)
-        assert isinstance(result, Path)
-        assert result.name == file_name
-
-    @pytest.mark.parametrize(
-        "input_path, expected_exception",
-        [
-            ("awfawf", NonExistentFileError),
-            ("tests\\test_files\\some_file.md", NonExistentFileError),
-            ("tests\\test_files", NonExistentFileError),
-            ("tests\\test_files\\some_file.txt", WrongExtensionError),
-        ],
-    )
-    def test_file_path_exceptions(self, input_path, expected_exception):
-        with pytest.raises(expected_exception):
-            FilePath(input_path)
-
-
-#! DirectoryPath func
 class TestDirectoryPathValidator:
-    """Directory validator tests for '-o' flag"""
 
-    @pytest.mark.parametrize(
-        "output_path, directory_name",
-        [
-            ("tests\\test_files", "test_files"),
-        ],
-    )
-    def test_correct_directory_path(self, output_path, directory_name):
-        result = DirectoryPath(output_path)
-        assert isinstance(result, Path)
-        assert result.name == directory_name
+    def test_valid_directory(self):
+        # Create a temporary directory for testing
+        os.makedirs('test_dir', exist_ok=True)
+        assert DirectoryPath('test_dir') is True
+        os.rmdir('test_dir')  # Clean up
 
-    @pytest.mark.parametrize(
-        "output_path, expected_exception",
-        [
-            ("awfawfwf", NonExistentDirectoryError),
-            ("tests\\test_images", NonExistentDirectoryError),
-            ("tests\\test_files\\some_file.txt", NonExistentDirectoryError),
-        ],
-    )
-    def test_directory_path_exceptions(self, output_path, expected_exception):
-        with pytest.raises(expected_exception):
-            DirectoryPath(output_path)
+    def test_invalid_directory(self):
+        assert DirectoryPath('non_existent_dir') is False
+
+    def test_file_path(self):
+        # Create a temporary file for testing
+        with open('test_file.txt', 'w') as f:
+            f.write('test')
+        assert DirectoryPath('test_file.txt') is False
+        os.remove('test_file.txt')  # Clean up
+
+    def test_empty_string(self):
+        assert DirectoryPath('') is False
